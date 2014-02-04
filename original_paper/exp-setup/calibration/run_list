@@ -1,0 +1,5 @@
+#seeds	name	options to avida ($seed, $name, $arch, $machine)
+#1,2..5 foo 	avida_p_$arch_7_30 -s $seed
+#------------------------------------------------------------
+#
+500..549  inflow_infinite  ./avida -s $seed -set ENVIRONMENT_FILE env.infinite.nolimit

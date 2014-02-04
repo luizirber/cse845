@@ -1,0 +1,15 @@
+class PlotWidget:
+11/24/2001
+- add logscale
+- add config dialog
+
+class AvidaData:
+11/24/2001
+- implement dominant data (currently, data such as dominant fitness
+  is just set to -1). What is missing so far are the corresponding
+  accessors in cStats.
+
+class ColorScaleWidget/MapViewCellColorUtil:
+12/16/2001
+- rename MapViewCellColorUtil to something more easy, and rename files
+  'map_view_cell_entry.*'

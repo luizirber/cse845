@@ -1,0 +1,17 @@
+This material was originally written and compiled by Charles Ofria
+from 1993-1998 primarily at the California Institute of Technology.
+The work was partially funded by both the Computation and Neural Systems
+department and Kellogg Radiation Lab at Caltech, and in development use
+was made of computers at Kellogg Lab.
+
+The 1.6 release series contains many improvements over earlier releases.
+These improvements were written in 2000-2001 by Charles Ofria and
+Claus O. Wilke.
+
+The core avida system was designed by Chris Adami, C. Titus Brown, and
+Charles Ofria in 1992-1998.  Portions of the design were supported by NSF
+grant #PHY91-15574, NSF grant #DEB-9981397, a Caltech divisional fellowship, 
+the 1993 Caltech SURF program, and the 1993 SUNY Stony Brook URECA program.
+
+Portions of Avida have been implemented by: Charles Ofria, Claus O. Wilke
+Travis Collier, and Dennis Adler.

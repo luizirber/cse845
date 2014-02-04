@@ -1,0 +1,10 @@
+#seeds	name	options to avida ($seed, $name, $arch, $machine)
+#1,2..5 foo 	avida_p_$arch_7_30 -s $seed
+#------------------------------------------------------------
+#
+200..204  inflow1000_101  ./avida -s $seed -set ENVIRONMENT_FILE env.inflow1000 -set EVENT_FILE events.cfg.few_t0
+210..214  inflow1000_101  ./avida -s $seed -set ENVIRONMENT_FILE env.inflow1000 -set EVENT_FILE events.cfg.few_t1
+220..224  inflow1000_101  ./avida -s $seed -set ENVIRONMENT_FILE env.inflow1000 -set EVENT_FILE events.cfg.few_t2
+230..234  inflow1000_101  ./avida -s $seed -set ENVIRONMENT_FILE env.inflow1000 -set EVENT_FILE events.cfg.few_t3
+240..244  inflow1000_101  ./avida -s $seed -set ENVIRONMENT_FILE env.inflow1000 -set EVENT_FILE events.cfg.few_t4
+250..254  inflow1000_101  ./avida -s $seed -set ENVIRONMENT_FILE env.inflow1000 -set EVENT_FILE events.cfg.few_t5

@@ -1,0 +1,669 @@
+# Makefile.in generated automatically by automake 1.4-p5 from Makefile.am
+
+# Copyright (C) 1994, 1995-8, 1999, 2001 Free Software Foundation, Inc.
+# This Makefile.in is free software; the Free Software Foundation
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+
+#
+# qmakeMakefile.inc is a makefile-include integrating GNU autoconf and
+# automake with Trolltech's qmake tool.  this helps manage projects
+# employing Trolltech's GUI library "Qt."
+#
+# for help using qmake, see http://doc.trolltech.com/3.0/qmake-guide.html
+# for information about Trolltech and Qt, see http://www.trolltech.com
+#
+# this file and the accompanying example project were constructed
+# December 2001 for use in the Avida project at Caltech.
+#
+# for information about Avida, see http://dllab.caltech.edu/avida/
+#
+
+#
+# construction of the default qmake command.
+#
+
+# grabbing qmake options from configure...
+
+
+SHELL = @SHELL@
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+DESTDIR =
+
+pkgdatadir = $(datadir)/@PACKAGE@
+pkglibdir = $(libdir)/@PACKAGE@
+pkgincludedir = $(includedir)/@PACKAGE@
+
+top_builddir = ../..
+
+ACLOCAL = @ACLOCAL@
+AUTOCONF = @AUTOCONF@
+AUTOMAKE = @AUTOMAKE@
+AUTOHEADER = @AUTOHEADER@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+transform = @program_transform_name@
+
+NORMAL_INSTALL = :
+PRE_INSTALL = :
+POST_INSTALL = :
+NORMAL_UNINSTALL = :
+PRE_UNINSTALL = :
+POST_UNINSTALL = :
+CC = @CC@
+CPP = @CPP@
+CXX = @CXX@
+EXEEXT = @EXEEXT@
+MAKEINFO = @MAKEINFO@
+PACKAGE = @PACKAGE@
+PERL = @PERL@
+QMAKE = @QMAKE@
+RANLIB = @RANLIB@
+VERSION = @VERSION@
+VIEW = @VIEW@
+VIEW_LIBS = @VIEW_LIBS@
+@QMAKE_DEBUG_TRUE@qmake_debug = debug
+@QMAKE_DEBUG_FALSE@qmake_debug = release
+@QMAKE_DEBUG_TRUE@qmake_debug_def = DEBUG
+@QMAKE_WARN_TRUE@qmake_warn = warn_on
+@QMAKE_WARN_FALSE@qmake_warn = warn_off
+QMAKE_PRO_ARGS = "OBJECTS_DIR = ." "MOC_DIR = ." "UI_DIR = ." "DEFINES += PACKAGE=\\\"$(PACKAGE)\\\"" "DEFINES += VERSION=\\\"$(VERSION)\\\"" "DEFINES += $(qmake_debug_def)" "CONFIG += qt $(qmake_debug) $(qmake_warn)" "CONFIG += create_prl link_prl" "DEPENDPATH = $(srcdir)" "QMAKE_EXT_H += .hh"
+
+# asks qmake to verify that Qt's multithreading library is available.
+QMAKE_PRO_ADDITIONAL =    exists( $(QTDIR)/lib/*qt-mt* ) { \n     message( "Configuring $@ for multi-threaded Qt..." ) \n     CONFIG += thread \n   } \n   REQUIRES += thread
+
+
+# the qmake command in project-file generation mode.
+QMAKE_PRO = ${QMAKE} -project -nopwd $(QMAKE_PRO_ARGS) -o
+
+# a function to canonicalize filenames; it only approximately satisfies
+# automake filename canonicalization rules.
+canonical = $(shell echo -n $(1) | tr -cs '[:alnum:]' '_')
+
+CPPFLAGS = @CPPFLAGS@
+
+AVIDA_SOURCE_DIR = ..
+
+AVIDA_CPU_DIR = $(AVIDA_SOURCE_DIR)/cpu
+AVIDA_DRIVER_DIR = ./
+AVIDA_EVENT_DIR = $(AVIDA_SOURCE_DIR)/event
+AVIDA_MAIN_DIR = $(AVIDA_SOURCE_DIR)/main
+AVIDA_TOOLS_DIR = $(AVIDA_SOURCE_DIR)/tools
+
+QT_VIEWER_SOURCE_DIR = .
+
+CELLVIEWWIDGET_DIR = $(QT_VIEWER_SOURCE_DIR)
+EVENT_VIEW_WIDGET_DIR = $(QT_VIEWER_SOURCE_DIR)
+GODBOX_WIDGET_DIR = $(QT_VIEWER_SOURCE_DIR)
+INSTR_VIEW_WIDGET_DIR = $(QT_VIEWER_SOURCE_DIR)
+SETUP_WIZARD_DIR = $(QT_VIEWER_SOURCE_DIR)
+WIDGETLIST_DIR = $(QT_VIEWER_SOURCE_DIR)
+INCLUDEPATH = $(AVIDA_MAIN_DIR) $(AVIDA_DRIVER_DIR) $(CELLVIEWWIDGET_DIR) $(AVIDA_CPU_DIR) $(WIDGETLIST_DIR) $(AVIDA_SOURCE_DIR) $(INSTR_VIEW_WIDGET_DIR) $(EVENT_VIEW_WIDGET_DIR)
+
+noinst_LIBRARIES = libwidgetlist.a libcellview.a libinstview.a libeventview.a libgodbox2.a libsetupwizard.a libavidadriver.a
+libwidgetlist_a_configs = staticlib
+libwidgetlist_a_SOURCES =  	avd_hide_show_button.cc 	avd_widget_list.cc 	avd_widget_list_container.cc 	avd_widget_list_item.cc 	avd_widget_list_item_container.cc 	code_widget.cc   gui_config.cc 	labeled_field_convenience.cc   messaging_population_wrapper.cc   population_cell_wrapper.cc
+
+noinst_HEADERS = $(libwidgetlist_a_headers) $(libcellview_a_headers) $(libinstview_a_headers) $(libeventview_a_headers) $(libgodbox2_a_headers) $(libsetupwizard_a_headers) $(libavidadriver_a_headers) $(qt_viewer_headers) $(avd_message_queue_t_headers)
+libwidgetlist_a_headers = $(libwidgetlist_a_SOURCES:%.cc=%.hh)
+libwidgetlist_a_includepath =    $(INCLUDEPATH)   $(AVIDA_TOOLS_DIR) 
+
+libcellview_a_configs = staticlib
+libcellview_a_SOURCES =  	avd_cell_view_list_item.cc 	population_cell_wrapper.cc 	population_cell_wrapped_accessors.cc 	cell_view_widget.cc 		population_cell_list_item.cc 			organism_list_item.cc 				hardware_list_item.cc 				phenotype_list_item.cc 					phenotype_last_divide_list_item.cc 					last_progress_list_item.cc 					lifetime_list_item.cc 					status_flags_list_item.cc 					child_info_list_item.cc 		mutation_rates_list_item.cc 		inputs_list_item.cc
+
+libcellview_a_headers = $(libcellview_a_SOURCES:%.cc=%.hh)
+libcellview_a_includepath =    $(INCLUDEPATH)   $(AVIDA_TOOLS_DIR)
+
+libinstview_a_configs = staticlib
+libinstview_a_SOURCES =    n_orig_instruction_field_widget.cc   n_orig_instruction_line_widget.cc 	n_orig_instruction_scrollview.cc   n_orig_instruction_scrollview_config.cc   n_orig_instruction_pixmapstructs.cc 	n_orig_instruction_view_widget.cc 	n_orig_instruction_buttons_widget.cc 	n_orig_instruction_cpu_widget.cc   n_orig_instruction_viewer.cc
+
+libinstview_a_headers = $(libinstview_a_SOURCES:%.cc=%.hh)
+libinstview_a_includepath =    $(AVIDA_CPU_DIR)   $(AVIDA_MAIN_DIR)   $(AVIDA_SOURCE_DIR)   $(AVIDA_TOOLS_DIR)   $(INSTR_VIEW_WIDGET_DIR)
+
+libeventview_a_configs = staticlib
+libeventview_a_SOURCES =    event_view_widget.cc
+
+libeventview_a_forms = event_list_editor.ui
+EXTRA_DIST = $(libeventview_a_forms) $(libsetupwizard_a_forms) $(qt_viewer_forms)
+
+CLEANFILES = $(libeventview_a_forms:%.ui=%.cpp) $(libeventview_a_forms:%.ui=%.hh) $(qt_viewer_forms:%.ui=%.cpp) $(qt_viewer_forms:%.ui=%.hh) double_slider_t.moc
+libeventview_a_headers = $(libeventview_a_SOURCES:%.cc=%.hh)
+libeventview_a_includepath = $(INCLUDEPATH)
+libgodbox2_a_configs = staticlib
+libgodbox2_a_SOURCES =    apocalypse_widget.cc   avd_rate_validator2.cc   avd_lograte_widget.cc   avd_rate_slider2.cc   godbox2.cc   godbox_widget2.cc   repopulate_widget.cc
+
+libgodbox2_a_headers = $(libgodbox2_a_SOURCES:%.cc=%.hh)
+libgodbox2_a_includepath = $(INCLUDEPATH) $(AVIDA_EVENT_DIR) $(AVIDA_TOOLS_DIR)
+libsetupwizard_a_configs = staticlib
+libsetupwizard_a_SOURCES =    testwizard.cc   testwizard_loadgen.cc   testwizard_validators.cc   setup_file.cc   setup_genesis.cc   setup_wizard.cc   setup_wizard2.cc   setup_wizard_config.cc   setup_wizard_constants.cc   setup_wizard_page.cc   setup_wizard_page2.cc
+
+libsetupwizard_a_forms = wizard.ui
+libsetupwizard_a_headers =    setup_file.hh   setup_genesis.hh   setup_wizard.hh   setup_wizard2.hh   setup_wizard_config.hh   setup_wizard_constants.hh   setup_wizard_page.hh   setup_wizard_page2.hh   testwizard.hh
+
+libsetupwizard_a_includepath =    $(AVIDA_TOOLS_DIR)   $(AVIDA_MAIN_DIR)
+
+libavidadriver_a_configs = staticlib
+libavidadriver_a_SOURCES =  	avida_driver.cc   avida_driver_messages.cc   avida_thread_driver.cc   gui_thread_driver.cc
+
+libavidadriver_a_headers = avida_driver.hh
+libavidadriver_a_includepath =    $(INCLUDEPATH)   $(AVIDA_TOOLS_DIR)
+
+
+bin_PROGRAMS = qt_viewer avd_message_queue_t
+qt_viewer_SOURCES =  	qt-viewer.cc 	avida_data.cc 	avida_plot_widget.cc 	color_scale_widget.cc 	creature_view.cc 	double_slider.cc   gui_message_display.cc 	init_file_view.cc 	main_window.cc 	map_view.cc 	map_view_widget.cc 	map_view_cell_entry.cc 	plot_select_dia_impl.cc 	plot_widget.cc   setup_avida.cc
+
+qt_viewer_forms = plot_select_dia.ui
+qt_viewer_headers =  	avida_data.hh 	avida_driver.hh 	avida_plot_widget.hh 	color_scale_widget.hh 	creature_view.hh 	double_slider.hh 	init_file_view.hh   n_orig_instruction_view_widget.hh 	main_window.hh 	map_view.hh 	map_view_widget.hh 	map_view_cell_entry.hh   messaging_population_wrapper.hh 	plot_select_dia_impl.hh 	plot_widget.hh   population_wrapper.hh
+
+qt_viewer_includepath =    $(INCLUDEPATH)   $(AVIDA_TOOLS_DIR)
+
+qt_viewer_LDADD = ../main/libmain.a 		../cpu/libcpu.a 		../event/libevent.a 		../main/libmain.a 		../tools/libtools.a   $(CELLVIEWWIDGET_DIR)/libcellview.a   $(WIDGETLIST_DIR)/libwidgetlist.a   $(INSTR_VIEW_WIDGET_DIR)/libinstview.a   $(EVENT_VIEW_WIDGET_DIR)/libeventview.a   $(GODBOX_WIDGET_DIR)/libgodbox2.a   $(SETUP_WIZARD_DIR)/libsetupwizard.a   $(AVIDA_TOOLS_DIR)/libtools.a   $(AVIDA_DRIVER_DIR)/libavidadriver.a
+
+#
+# below is a workaround for following bug in qt-mac-commercial-3.0.4:
+#
+# the Darwin link-editor loads files and libraries in the exact order
+# given on the command line, and, in the case if static libraries,
+# examines them once, looking for symbols that are undefined *at the
+# moment the the library is loaded*.  If it doesn't find any currently
+# undefined symbols in the library, it forgets all about the library.
+#
+# so link commands like the following, that work under linux:
+#
+#   cc -Lsome/path -Lother/path -lfoo -lbar... -o program file1.o...
+#
+# must be rewritten for MacOSX/Darwin as:
+#
+#   cc -o program file1.o... -Lsome/path -Lother/path -lfoo -lbar...
+#
+# qt-mac-commercial-3.0.4 generates the former link order.  The
+# following places -lqt-mt into the link command a second time, where
+# the Darwin link-editor can use it.
+#
+qt_viewer_additional =    macx:LIBS += -lqt-mt
+
+
+# test code
+EXTRA_PROGRAMS =  	test_cpu_widget 	test_plot_widget 	test_double_slider 	test_color_scale_widget 	test_plot_select_dia_impl
+
+avd_message_queue_t_SOURCES =  	avd_message_queue_t.cc
+
+avd_message_queue_t_headers =  	avd_message_queue.hh 	avd_message_queue_t.hh
+
+avd_message_queue_t_includepath =    $(AVIDA_TOOLS_DIR)
+
+avd_message_queue_t_LDADD =    $(AVIDA_TOOLS_DIR)/libtools.a
+
+test_color_scale_widget_SOURCES = color_scale_widget.cc          color_scale_widget_t.cc
+
+test_color_scale_widget_headers = color_scale_widget.hh
+test_cpu_widget_SOURCES = cpu-widget_t.cc
+test_cpu_widget_LDADD = ../main/libmain.a 		../cpu/libcpu.a 		../event/libevent.a 		../main/libmain.a 		../tools/libtools.a
+
+test_plot_select_dia_impl_SOURCES =  	avida_data.cc 	plot_select_dia_impl.cc 	plot_select_dia_impl_t.cc
+
+test_plot_select_dia_impl_headers = plot_select_dia_impl.hh
+test_plot_select_dia_impl_forms = plot_select_dia.ui
+test_plot_widget_SOURCES = plot_widget_t.cc plot_widget.cc double_slider.cc
+test_plot_widget_headers = plot_widget.hh double_slider.hh
+test_plot_widget_LDADD = ../tools/libtools.a
+test_double_slider_SOURCES = double_slider_t.cc double_slider.cc
+test_double_slider_headers = double_slider.hh
+mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+CONFIG_CLEAN_FILES = 
+LIBRARIES =  $(noinst_LIBRARIES)
+
+
+DEFS = @DEFS@ -I. -I$(srcdir) 
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+libwidgetlist_a_LIBADD = 
+libwidgetlist_a_OBJECTS =  avd_hide_show_button.o avd_widget_list.o \
+avd_widget_list_container.o avd_widget_list_item.o \
+avd_widget_list_item_container.o code_widget.o gui_config.o \
+labeled_field_convenience.o messaging_population_wrapper.o \
+population_cell_wrapper.o
+libcellview_a_LIBADD = 
+libcellview_a_OBJECTS =  avd_cell_view_list_item.o \
+population_cell_wrapper.o population_cell_wrapped_accessors.o \
+cell_view_widget.o population_cell_list_item.o organism_list_item.o \
+hardware_list_item.o phenotype_list_item.o \
+phenotype_last_divide_list_item.o last_progress_list_item.o \
+lifetime_list_item.o status_flags_list_item.o child_info_list_item.o \
+mutation_rates_list_item.o inputs_list_item.o
+libinstview_a_LIBADD = 
+libinstview_a_OBJECTS =  n_orig_instruction_field_widget.o \
+n_orig_instruction_line_widget.o n_orig_instruction_scrollview.o \
+n_orig_instruction_scrollview_config.o \
+n_orig_instruction_pixmapstructs.o n_orig_instruction_view_widget.o \
+n_orig_instruction_buttons_widget.o n_orig_instruction_cpu_widget.o \
+n_orig_instruction_viewer.o
+libeventview_a_LIBADD = 
+libeventview_a_OBJECTS =  event_view_widget.o
+libgodbox2_a_LIBADD = 
+libgodbox2_a_OBJECTS =  apocalypse_widget.o avd_rate_validator2.o \
+avd_lograte_widget.o avd_rate_slider2.o godbox2.o godbox_widget2.o \
+repopulate_widget.o
+libsetupwizard_a_LIBADD = 
+libsetupwizard_a_OBJECTS =  testwizard.o testwizard_loadgen.o \
+testwizard_validators.o setup_file.o setup_genesis.o setup_wizard.o \
+setup_wizard2.o setup_wizard_config.o setup_wizard_constants.o \
+setup_wizard_page.o setup_wizard_page2.o
+libavidadriver_a_LIBADD = 
+libavidadriver_a_OBJECTS =  avida_driver.o avida_driver_messages.o \
+avida_thread_driver.o gui_thread_driver.o
+AR = ar
+bin_PROGRAMS =  qt_viewer$(EXEEXT) avd_message_queue_t$(EXEEXT)
+PROGRAMS =  $(bin_PROGRAMS)
+
+test_cpu_widget_OBJECTS =  cpu-widget_t.o
+test_cpu_widget_DEPENDENCIES =  ../main/libmain.a ../cpu/libcpu.a \
+../event/libevent.a ../main/libmain.a ../tools/libtools.a
+test_cpu_widget_LDFLAGS = 
+test_plot_widget_OBJECTS =  plot_widget_t.o plot_widget.o \
+double_slider.o
+test_plot_widget_DEPENDENCIES =  ../tools/libtools.a
+test_plot_widget_LDFLAGS = 
+test_double_slider_OBJECTS =  double_slider_t.o double_slider.o
+test_double_slider_LDADD = $(LDADD)
+test_double_slider_DEPENDENCIES = 
+test_double_slider_LDFLAGS = 
+test_color_scale_widget_OBJECTS =  color_scale_widget.o \
+color_scale_widget_t.o
+test_color_scale_widget_LDADD = $(LDADD)
+test_color_scale_widget_DEPENDENCIES = 
+test_color_scale_widget_LDFLAGS = 
+test_plot_select_dia_impl_OBJECTS =  avida_data.o plot_select_dia_impl.o \
+plot_select_dia_impl_t.o
+test_plot_select_dia_impl_LDADD = $(LDADD)
+test_plot_select_dia_impl_DEPENDENCIES = 
+test_plot_select_dia_impl_LDFLAGS = 
+qt_viewer_OBJECTS =  qt-viewer.o avida_data.o avida_plot_widget.o \
+color_scale_widget.o creature_view.o double_slider.o \
+gui_message_display.o init_file_view.o main_window.o map_view.o \
+map_view_widget.o map_view_cell_entry.o plot_select_dia_impl.o \
+plot_widget.o setup_avida.o
+qt_viewer_DEPENDENCIES =  ../main/libmain.a ../cpu/libcpu.a \
+../event/libevent.a ../main/libmain.a ../tools/libtools.a \
+$(CELLVIEWWIDGET_DIR)/libcellview.a $(WIDGETLIST_DIR)/libwidgetlist.a \
+$(INSTR_VIEW_WIDGET_DIR)/libinstview.a \
+$(EVENT_VIEW_WIDGET_DIR)/libeventview.a \
+$(GODBOX_WIDGET_DIR)/libgodbox2.a $(SETUP_WIZARD_DIR)/libsetupwizard.a \
+$(AVIDA_TOOLS_DIR)/libtools.a $(AVIDA_DRIVER_DIR)/libavidadriver.a
+qt_viewer_LDFLAGS = 
+avd_message_queue_t_OBJECTS =  avd_message_queue_t.o
+avd_message_queue_t_DEPENDENCIES =  $(AVIDA_TOOLS_DIR)/libtools.a
+avd_message_queue_t_LDFLAGS = 
+CXXFLAGS = @CXXFLAGS@
+CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
+CXXLD = $(CXX)
+CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(LDFLAGS) -o $@
+HEADERS =  $(noinst_HEADERS)
+
+DIST_COMMON =  Makefile.am Makefile.in TODO
+
+
+DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+
+TAR = tar
+GZIP_ENV = --best
+SOURCES = $(libwidgetlist_a_SOURCES) $(libcellview_a_SOURCES) $(libinstview_a_SOURCES) $(libeventview_a_SOURCES) $(libgodbox2_a_SOURCES) $(libsetupwizard_a_SOURCES) $(libavidadriver_a_SOURCES) $(test_cpu_widget_SOURCES) $(test_plot_widget_SOURCES) $(test_double_slider_SOURCES) $(test_color_scale_widget_SOURCES) $(test_plot_select_dia_impl_SOURCES) $(qt_viewer_SOURCES) $(avd_message_queue_t_SOURCES)
+OBJECTS = $(libwidgetlist_a_OBJECTS) $(libcellview_a_OBJECTS) $(libinstview_a_OBJECTS) $(libeventview_a_OBJECTS) $(libgodbox2_a_OBJECTS) $(libsetupwizard_a_OBJECTS) $(libavidadriver_a_OBJECTS) $(test_cpu_widget_OBJECTS) $(test_plot_widget_OBJECTS) $(test_double_slider_OBJECTS) $(test_color_scale_widget_OBJECTS) $(test_plot_select_dia_impl_OBJECTS) $(qt_viewer_OBJECTS) $(avd_message_queue_t_OBJECTS)
+
+all: all-redirect
+.SUFFIXES:
+.SUFFIXES: .S .c .cc .o .s
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) $(top_srcdir)/qmakeMakefile.inc
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps source/qt-viewer/Makefile
+
+Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+
+mostlyclean-noinstLIBRARIES:
+
+clean-noinstLIBRARIES:
+	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
+
+distclean-noinstLIBRARIES:
+
+maintainer-clean-noinstLIBRARIES:
+
+.c.o:
+	$(COMPILE) -c $<
+
+.s.o:
+	$(COMPILE) -c $<
+
+.S.o:
+	$(COMPILE) -c $<
+
+mostlyclean-compile:
+	-rm -f *.o core *.core
+
+clean-compile:
+
+distclean-compile:
+	-rm -f *.tab.c
+
+maintainer-clean-compile:
+
+mostlyclean-binPROGRAMS:
+
+clean-binPROGRAMS:
+	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
+
+distclean-binPROGRAMS:
+
+maintainer-clean-binPROGRAMS:
+
+install-binPROGRAMS: $(bin_PROGRAMS)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(bindir)
+	@list='$(bin_PROGRAMS)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    echo "  $(INSTALL_PROGRAM) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`"; \
+	     $(INSTALL_PROGRAM) $$p $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
+	  else :; fi; \
+	done
+
+uninstall-binPROGRAMS:
+	@$(NORMAL_UNINSTALL)
+	list='$(bin_PROGRAMS)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(bindir)/`echo $$p|sed 's/$(EXEEXT)$$//'|sed '$(transform)'|sed 's/$$/$(EXEEXT)/'`; \
+	done
+.cc.o:
+	$(CXXCOMPILE) -c $<
+
+tags: TAGS
+
+ID: $(HEADERS) $(SOURCES) $(LISP)
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	here=`pwd` && cd $(srcdir) \
+	  && mkid -f$$here/ID $$unique $(LISP)
+
+TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) $(LISP)
+	tags=; \
+	here=`pwd`; \
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
+	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $$unique $(LISP) -o $$here/TAGS)
+
+mostlyclean-tags:
+
+clean-tags:
+
+distclean-tags:
+	-rm -f TAGS ID
+
+maintainer-clean-tags:
+
+distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
+
+subdir = source/qt-viewer
+
+distdir: $(DISTFILES)
+	@for file in $(DISTFILES); do \
+	  d=$(srcdir); \
+	  if test -d $$d/$$file; then \
+	    cp -pr $$d/$$file $(distdir)/$$file; \
+	  else \
+	    test -f $(distdir)/$$file \
+	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+	    || cp -p $$d/$$file $(distdir)/$$file || :; \
+	  fi; \
+	done
+
+info-am:
+info: info-am
+dvi-am:
+dvi: dvi-am
+check-am: all-am
+check: check-am
+installcheck-am:
+installcheck: installcheck-am
+install-exec-am: install-binPROGRAMS
+install-exec: install-exec-am
+
+install-data-am:
+install-data: install-data-am
+
+install-am: all-am
+	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
+install: install-am
+uninstall-am: uninstall-binPROGRAMS
+uninstall: uninstall-am
+all-am: Makefile $(LIBRARIES) $(PROGRAMS) $(HEADERS)
+all-redirect: all-am
+install-strip:
+	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
+installdirs:
+	$(mkinstalldirs)  $(DESTDIR)$(bindir)
+
+
+mostlyclean-generic:
+
+clean-generic:
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
+
+distclean-generic:
+	-rm -f Makefile $(CONFIG_CLEAN_FILES)
+	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+
+maintainer-clean-generic:
+mostlyclean-am:  mostlyclean-noinstLIBRARIES mostlyclean-compile \
+		mostlyclean-binPROGRAMS mostlyclean-tags \
+		mostlyclean-generic mostlyclean-local
+
+mostlyclean: mostlyclean-am
+
+clean-am:  clean-noinstLIBRARIES clean-compile clean-binPROGRAMS \
+		clean-tags clean-generic mostlyclean-am
+
+clean: clean-am
+
+distclean-am:  distclean-noinstLIBRARIES distclean-compile \
+		distclean-binPROGRAMS distclean-tags distclean-generic \
+		clean-am
+
+distclean: distclean-am
+
+maintainer-clean-am:  maintainer-clean-noinstLIBRARIES \
+		maintainer-clean-compile maintainer-clean-binPROGRAMS \
+		maintainer-clean-tags maintainer-clean-generic \
+		distclean-am
+	@echo "This command is intended for maintainers to use;"
+	@echo "it deletes files that may require special tools to rebuild."
+
+maintainer-clean: maintainer-clean-am
+
+.PHONY: mostlyclean-noinstLIBRARIES distclean-noinstLIBRARIES \
+clean-noinstLIBRARIES maintainer-clean-noinstLIBRARIES \
+mostlyclean-compile distclean-compile clean-compile \
+maintainer-clean-compile mostlyclean-binPROGRAMS distclean-binPROGRAMS \
+clean-binPROGRAMS maintainer-clean-binPROGRAMS uninstall-binPROGRAMS \
+install-binPROGRAMS tags mostlyclean-tags distclean-tags clean-tags \
+maintainer-clean-tags distdir info-am info dvi-am dvi check check-am \
+installcheck-am installcheck install-exec-am install-exec \
+install-data-am install-data install-am install uninstall-am uninstall \
+all-redirect all-am all installdirs mostlyclean-generic \
+distclean-generic clean-generic maintainer-clean-generic clean \
+mostlyclean distclean maintainer-clean
+
+
+# extra clean targets.
+mostlyclean-local:
+	rm -f *.pro *.libpro *.qmakefile *.qlibmakefile
+	rm -f moc*.cpp
+
+#
+# the following two defines are kludges to permit parallel builds.
+# use in a makefile as follows:
+#
+#	application_target: FORCE; $(QBUILDAPP)
+#
+#	library_target: FORCE; $(QBUILDLIB)
+#
+
+define QBUILDAPP
+	@newer $@.pro Makefile || ( \
+		echo "--- generating project file $@.pro..." \
+		; \
+		$(QMAKE_PRO) $@.pro -t app \
+		"CONFIG += $($(call canonical, $@)_configs)" \
+		"DEFINES += $($(call canonical, $@)_defines)" \
+		"TARGET = $@" \
+		"HEADERS = $($(call canonical, $@)_headers:%=$(srcdir)/%)" \
+		"INCLUDEPATH += $($(call canonical, $@)_includepath:%=$(srcdir)/%)" \
+		"FORMS = $($(call canonical, $@)_forms:%=$(srcdir)/%)" \
+		"LEXSOURCES = $($(call canonical, $@)_lexsources:%=$(srcdir)/%)" \
+		"LIBS += $($(call canonical, $@)_LDADD)" \
+		"TARGETDEPS += $($(call canonical, $@)_LDADD)" \
+		"REQUIRES = $($(call canonical, $@)_requires)" \
+		"SOURCES = $($(call canonical, $@)_SOURCES:%=$(srcdir)/%)" \
+		"VERSION = $($(call canonical, $@)_version)" \
+		"YACCSOURCES = $($(call canonical, $@)_yaccsources:%=$(srcdir)/%)" \
+		; \
+		echo >> $@.pro; \
+		echo -e "$(QMAKE_PRO_ADDITIONAL)" >> $@.pro; \
+		echo -e "$($(call canonical, $@)_additional)" >> $@.pro \
+		; \
+		echo "--- generating makefile $@.qmakefile..."; \
+		$(QMAKE) -o $@.qmakefile $@.pro -t app \
+	)
+
+	+$(MAKE) -f $@.qmakefile
+endef
+
+define QBUILDLIB
+	@newer $@.libpro Makefile || ( \
+		echo "--- generating project file $@.libpro..." \
+		; \
+		$(QMAKE_PRO) $@.libpro -t lib \
+		"CONFIG += $($(call canonical, $@)_configs)" \
+		"DEFINES += $($(call canonical, $@)_defines)" \
+		"TARGET = $(@:lib%.a=%)" \
+		"HEADERS = $($(call canonical, $@)_headers:%=$(srcdir)/%)" \
+		"INCLUDEPATH += $($(call canonical, $@)_includepath:%=$(srcdir)/%)" \
+		"FORMS = $($(call canonical, $@)_forms:%=$(srcdir)/%)" \
+		"LEXSOURCES = $($(call canonical, $@)_lexsources:%=$(srcdir)/%)" \
+		"LIBS += $($(call canonical, $@)_LDADD)" \
+		"REQUIRES = $($(call canonical, $@)_requires)" \
+		"SOURCES = $($(call canonical, $@)_SOURCES:%=$(srcdir)/%)" \
+		"VERSION = $($(call canonical, $@)_version)" \
+		"YACCSOURCES = $($(call canonical, $@)_yaccsources:%=$(srcdir)/%)" \
+		; \
+		echo >> $@.libpro; \
+		echo -e "$(QMAKE_PRO_ADDITIONAL)" >> $@.libpro; \
+		echo -e "$($(call canonical, $@)_additional)" >> $@.libpro \
+		; \
+		echo "--- generating library makefile $@.qlibmakefile..."; \
+		$(QMAKE) -o $@.qlibmakefile $@.libpro -t lib \
+	)
+
+	+$(MAKE) -f $@.qlibmakefile
+endef
+
+.PHONY: FORCE
+libwidgetlist.a: FORCE; $(QBUILDLIB) # forces handling by qmakeMakefile.
+libcellview.a: FORCE; $(QBUILDLIB)
+libinstview.a: FORCE; $(QBUILDLIB)
+libeventview.a: FORCE; $(QBUILDLIB)
+libgodbox2.a: FORCE; $(QBUILDLIB)
+libsetupwizard.a: FORCE; $(QBUILDLIB)
+libavidadriver.a: FORCE; $(QBUILDLIB)
+qt_viewer$(EXEEXT): FORCE; $(QBUILDAPP)
+avd_message_queue_t$(EXEEXT): FORCE; $(QBUILDAPP)
+
+# EXTRA_PROGRAMS += test_widget_list
+# test_widget_list: FORCE; $(QBUILDAPP)
+# test_widget_list_SOURCES = \
+# 	test_list.cc \
+# 	test_list2.cc \
+# 	test_list_item.cc \
+# 	test_list3.cc \
+# 	test_list_subitem.cc \
+# 	test_list_t.cc
+# noinst_HEADERS += $(test_widget_list_headers)
+# test_widget_list_headers = \
+# 	test_list.hh \
+# 	test_list2.hh \
+# 	test_list_item.hh \
+# 	test_list3.hh \
+# 	test_list_subitem.hh
+# test_widget_list_LDADD = libwidgetlist.a
+# 
+# 
+# 
+# EXTRA_PROGRAMS += test_cell_view
+# test_cell_view: FORCE; $(QBUILDAPP)
+# test_cell_view_SOURCES = test_cell_view_t.cc
+# noinst_HEADERS += $(test_cell_view_headers)
+# test_cell_view_headers = cell_view_widget.hh
+# test_cell_view_includepath = $(INCLUDEPATH)
+# #
+# # note link order problems: libmain.a must be present twice in the
+# # following list of libraries.
+# #
+# # good enough for now, tho.
+# #
+# test_cell_view_LDADD = \
+# 	libcellview.a \
+# 	libwidgetlist.a \
+# 	$(AVIDA_MAIN_DIR)/libmain.a \
+# 	$(AVIDA_CPU_DIR)/libcpu.a \
+# 	$(AVIDA_EVENT_DIR)/libevent.a \
+# 	$(AVIDA_MAIN_DIR)/libmain.a \
+# 	$(AVIDA_TOOLS_DIR)/libtools.a
+
+test_color_scale_widget$(EXEEXT): FORCE; $(QBUILDAPP)
+
+test_cpu_widget$(EXEEXT): FORCE; $(QBUILDAPP)
+
+test_plot_select_dia_impl$(EXEEXT): FORCE; $(QBUILDAPP)
+# EXTRA_DIST += $(test_plot_select_dia_impl_forms)
+
+test_plot_widget$(EXEEXT): FORCE; $(QBUILDAPP)
+
+test_double_slider$(EXEEXT): double_slider_t.moc FORCE; $(QBUILDAPP)
+double_slider_t.moc: double_slider_t.cc
+	$(QTDIR)/bin/moc -o $@ $<
+
+# Tell versions [3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:

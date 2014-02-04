@@ -1,0 +1,15 @@
+#seeds	name	options to avida ($seed, $name, $arch, $machine)
+#1,2..5 foo 	avida_p_$arch_7_30 -s $seed
+#------------------------------------------------------------
+#
+100..124  inflow10    ./avida -s $seed -set ENVIRONMENT_FILE env.inflow10
+100..124  inflow1000  ./avida -s $seed -set ENVIRONMENT_FILE env.inflow1000
+100..124  inflow100   ./avida -s $seed -set ENVIRONMENT_FILE env.inflow100
+100..124  inflow1     ./avida -s $seed -set ENVIRONMENT_FILE env.inflow1
+100..124  inflow10000 ./avida -s $seed -set ENVIRONMENT_FILE env.inflow10000
+100..124  inflow01    ./avida -s $seed -set ENVIRONMENT_FILE env.inflow01
+100..124  inflow100000 ./avida -s $seed -set ENVIRONMENT_FILE env.inflow100000
+
+
+
+
