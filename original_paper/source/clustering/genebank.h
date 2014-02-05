@@ -6,6 +6,8 @@
 #include <map>
 #include <string>
 
+using namespace std;
+
 class Genebank {
 private:
   map<int, Genotype*> m_genotypeMap;

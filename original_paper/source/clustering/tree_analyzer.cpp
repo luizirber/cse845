@@ -202,7 +202,7 @@ void TreeAnalyzer::calculateMRCADistanceMatrix()
   m_aveDistance /= static_cast<double>(m_finalPopSize*m_finalPopSize);
 }
 
-void TreeAnalyzer::doClusteringAnalysis( const char *clusterDataFile, int cutoff = 1 )
+void TreeAnalyzer::doClusteringAnalysis( const char *clusterDataFile, int cutoff)
 {
   cout << "doing clustering analysis" << endl;
   

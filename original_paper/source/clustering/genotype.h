@@ -3,6 +3,8 @@
 
 #include <string>
 
+using namespace std;
+
 class Genotype {
 private:
   Genotype *m_parent;
