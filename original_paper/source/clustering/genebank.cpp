@@ -235,7 +235,7 @@ int Genebank::calcMRCADist( const Genotype *g1, const Genotype *g2 ) const
   }
   g->setTagged( false );
   //  cout << "Untag " << g->getId() << endl;
-  return (g1->getBirth() + g2->getBirth() - 2*(birth1 <? birth2));
+  return (g1->getBirth() + g2->getBirth() - 2*(max(birth1, birth2) - min(birth1, birth2)));
   //  return g1->getTreeDepth() + g2->getTreeDepth() - 2*gmut->getTreeDepth();
 }
 
