@@ -1,0 +1,13 @@
+#!/bin/bash -login
+ 
+#PBS -l walltime=1:00:00,nodes=1:ppn=1,mem=2gb
+#PBS -j oe
+
+### load necessary modules, e.g.
+module load SciPy
+ 
+### change to the working directory where your code is located
+cd Documents/cse845f/chow_replication/replication_data_analysis_files
+ 
+### call your executable
+python run_analysis.py
