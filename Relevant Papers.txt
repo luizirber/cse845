@@ -1,0 +1,44 @@
+
+Must Read:
+    1. "Adaptive Radiation from Resource Competition in Digital Organisms", Chow et al. 2004
+            https://www.sciencemag.org/content/305/5680/84.full
+                Replication Paper
+    2.  Digital Evolution in Time-Dependent Fitness Landscapes, Li and Wilke 2004
+            http://authors.library.caltech.edu/13450/1/LIYal04.pdf
+                Avida paper that uses fluctuating environments
+    3. The experimental evolution of specialists, generalists, and the maintenance of diversity., Kassen 2002
+        http://onlinelibrary.wiley.com/doi/10.1046/j.1420-9101.2002.00377.x/abstract
+        A review on relevant topics, although much more work has been done since its publication.
+    4. Toward a General Theory of Adaptive Radiation, Kassen 2009
+        http://onlinelibrary.wiley.com/store/10.1111/j.1749-6632.2009.04574.x/asset/j.1749-6632.2009.04574.x.pdf?v=1&t=hrkt54yk&s=690e82f12fc371d02ce310ee255c2771e7e06068
+            A review similiar to the one above, but more recent.
+
+Important:
+    1. Diversification in temporally heterogeneous environments: effect of the grain in experimental bacterial populations, Venail et al. 2011
+        http://onlinelibrary.wiley.com/store/10.1111/j.1420-9101.2011.02376.x/asset/j.1420-9101.2011.02376.x.pdf?v=1&t=hrkr034w&s=88a9c01aecb3fd9625d4600a2a5c3f875c42c646
+            Microbe experiments that support the idea the intermediate grain increase diversity
+    2. Experimental adaptation to high and low quality environments under different scales of temporal variation, Buckling et al. 2007
+        http://onlinelibrary.wiley.com/doi/10.1111/j.1420-9101.2006.01195.x/full
+            Argued that generalists can evolve in temporally-varying environments with no/little cost to generalism
+    3. On the experimental evolution of specialization and diversity in heterogeneous environments, Jasmin and Kassen 2007
+        http://onlinelibrary.wiley.com/doi/10.1111/j.1461-0248.2007.01021.x/abstract
+            Another microbe experiment on diversification in varying environments
+    4. Experimental evolution in Chlamydomonas. IV. Selection in environments that vary through time at different scales, Kassen and Bell 1998
+        http://www.nature.com/hdy/journal/v80/n6/full/6883290a.html
+            Found that selection acted on the mean of fitness, not the variance, and that there was little cost to being a generalist
+
+If You Have Time:
+    1. Frequency-Dependent Selection in a Periodic Environment, Foster and Wilke 2007
+        http://europepmc.org/articles/PMC2031831/reload=0;jsessionid=P4Kd5OnucAUaj9pftBEp.2
+            Although this paper deals with two competeing virus strains, it may be useful (i.e. if one thinks of competition between specialists and generalists)
+    2. MECHANISMS OF MAINTENANCE OF SPECIES DIVERSITY, Chesson 2000
+        http://eebweb.arizona.edu/Faculty/chesson/Peter/Reprints/2000_Mechanisms_of_maintenance.pdf
+            The paper on species coexistence
+    3. Adaptive radiation in a heterogeneous environment, Rainey and Travisano 1998
+        http://isites.harvard.edu/fs/docs/icb.topic957318.files/Papers/Rainey%20and%20Travisano%201998%20-%20Adaptive%20radiation%20in%20a%20heterogeneous%20environment.pdf
+            The paper that established the microbial model system used in many of the above papers.
+    4. The Evolution of Ecological Specialization, Futuyama and Moreno 1988
+        http://www.annualreviews.org/doi/abs/10.1146%2Fannurev.es.19.110188.001231
+            Review on, well, what the title says
+            
+    

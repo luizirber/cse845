@@ -1,0 +1,13 @@
+#!/bin/bash -login
+ 
+#PBS -l walltime=8:00:00,nodes=1:ppn=1,mem=2gb
+#PBS -j oe
+
+### load necessary modules, e.g.
+module load avida
+ 
+### change to the working directory where your code is located
+cd Documents/cse845f/fluc_env/config_files
+ 
+### call your executable
+avida -a -set DATA_DIR ../data_sync_100 -set EVENT_FILE events_sync_100.cfg -set ANALYZE_FILE analyze_sync_100.cfg
