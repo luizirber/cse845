@@ -54,13 +54,18 @@ void TreeAnalyzer::loadData( const char *gzDetail, const char *gzHistoric )
   
   int id, parentId, treeDepth, birth, death;
   double dummy;
+  string dummy_str;
   string genome; // new
   m_finalPopSize = 0;
 
   // read in the data we are interested in
-  while ( final >> id >> parentId >> dummy >> dummy >> dummy >> dummy
-	  >> dummy >> dummy >> dummy >> birth >> death >> treeDepth >>
-	  genome ) {     // note: death = -1 for alive organisms
+  while ( final >> id >> dummy_str >> dummy_str
+                >> parentId >> dummy >> dummy >> dummy >> dummy
+                >> dummy >> dummy >> dummy
+                >> birth >> death >> treeDepth
+                >> dummy >> dummy_str
+                >> genome >> dummy >> dummy >> dummy)
+  {     // note: death = -1 for alive organisms
 
     if ( treeDepth > m_maxTreeDepth )
       m_maxTreeDepth = treeDepth;
@@ -80,10 +85,13 @@ void TreeAnalyzer::loadData( const char *gzDetail, const char *gzHistoric )
     exit( -1 );
   }
   
-  while ( historic >> id >> parentId >> dummy >> dummy >> dummy >>
-	  dummy >> dummy >> dummy >> dummy >> birth >> death >>
-	  treeDepth >> genome ) {
-
+  while ( historic >> id >> dummy_str >> dummy_str
+                   >> parentId >> dummy >> dummy >> dummy >> dummy
+                   >> dummy >> dummy >> dummy
+                   >> birth >> death >> treeDepth
+                   >> dummy >> dummy_str
+                   >> genome >> dummy >> dummy >> dummy)
+  {
     m_genebank.createGenotype( id, parentId, treeDepth, birth, death,
 			       genome );
   }
