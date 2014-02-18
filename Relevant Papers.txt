@@ -10,12 +10,12 @@ Must Read:
         http://onlinelibrary.wiley.com/doi/10.1046/j.1420-9101.2002.00377.x/abstract
         A review on relevant topics, although much more work has been done since its publication.
     4. Toward a General Theory of Adaptive Radiation, Kassen 2009
-        http://onlinelibrary.wiley.com/store/10.1111/j.1749-6632.2009.04574.x/asset/j.1749-6632.2009.04574.x.pdf?v=1&t=hrkt54yk&s=690e82f12fc371d02ce310ee255c2771e7e06068
+        http://mysite.science.uottawa.ca/rkassen/Papers/Kassen%20NYAS%202009.pdf
             A review similiar to the one above, but more recent.
 
 Important:
     1. Diversification in temporally heterogeneous environments: effect of the grain in experimental bacterial populations, Venail et al. 2011
-        http://onlinelibrary.wiley.com/store/10.1111/j.1420-9101.2011.02376.x/asset/j.1420-9101.2011.02376.x.pdf?v=1&t=hrkr034w&s=88a9c01aecb3fd9625d4600a2a5c3f875c42c646
+        http://onlinelibrary.wiley.com/doi/10.1111/j.1420-9101.2011.02376.x/full
             Microbe experiments that support the idea the intermediate grain increase diversity
     2. Experimental adaptation to high and low quality environments under different scales of temporal variation, Buckling et al. 2007
         http://onlinelibrary.wiley.com/doi/10.1111/j.1420-9101.2006.01195.x/full
