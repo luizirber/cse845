@@ -10,7 +10,7 @@ int main( int argc, char **argv )
 {
   if ( argc < 4 ) {
     cout << "wrong number of arguments --\n";
-    cout << "format: treeCS <gzipped detail file> <gzipped historic file> "; 
+    cout << "format: treeCS <preprocessed detail file> <preprocessed historic file> "; 
     cout << "<clustering data output file> ";
     cout << "[<cluster cutoff value>]\n";
     return 0;

@@ -19,33 +19,16 @@ TreeAnalyzer::~TreeAnalyzer()
 {
 }
 
-void TreeAnalyzer::loadData( const char *gzDetail, const char *gzHistoric )
+void TreeAnalyzer::loadData( const char *preDetail, const char *preHistoric )
 {
   cout << "loading data" << endl;
 
-  const string gzExt = ".gz";
-  string gzDetailFile;
   string detailFile;
-  string gzHistoricFile;
   string historicFile;
   
-  const string gunzipCommand = "gunzip ";
-  const string gzipCommand = "gzip ";
-  string systemCommand;
+  detailFile = preDetail;
+  historicFile = preHistoric;
 
-  gzDetailFile = gzDetail;
-  gzHistoricFile = gzHistoric;
-  detailFile = gzDetailFile;
-  detailFile.resize(gzDetailFile.size() - gzExt.size());
-  historicFile = gzHistoricFile;
-  historicFile.resize(gzHistoricFile.size() - gzExt.size());
-
-  systemCommand = gunzipCommand + gzDetailFile;
-  system( systemCommand.c_str() );
-  
-  systemCommand = gunzipCommand + gzHistoricFile;
-  system( systemCommand.c_str() );
-  
   ifstream final( detailFile.c_str() );
   if ( final.fail() ){
     cerr << "error opening " << detailFile << ". Exiting" << endl;
@@ -96,11 +79,6 @@ void TreeAnalyzer::loadData( const char *gzDetail, const char *gzHistoric )
   m_genebank.checkCoalescence( m_genebank.getGenotype( m_finalPop[0] ) );
   //  m_genebank.print();
   
-  systemCommand = gzipCommand + detailFile;
-  system( systemCommand.c_str() );
-  
-  systemCommand = gzipCommand + historicFile;
-  system( systemCommand.c_str() );  
 }
 
 
