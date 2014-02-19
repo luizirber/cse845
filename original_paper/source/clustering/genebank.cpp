@@ -64,14 +64,17 @@ void Genebank::setupParentPointers()
 {
   //  cout << "void Genebank::setupParentPointers() called\n";
   map<int, Genotype*>::iterator it = m_genotypeMap.begin();
+  map<int, Genotype*>::iterator end = m_genotypeMap.end();
   map<int, Genotype*>::iterator parent;
 
-  for ( ; it != m_genotypeMap.end(); it++ ){
+  for ( ; it != end; it++ ){
     int parentId = (*it).second->getParentId();
     if ( parentId >= 0 ){
       parent = m_genotypeMap.find( parentId );
-      (*it).second->setParent( (*parent).second );
-      (*parent).second->incrementCount();
+      if (parent != m_genotypeMap.end()) {
+        (*it).second->setParent( (*parent).second );
+        (*parent).second->incrementCount();
+      }
     }
   }
 }
