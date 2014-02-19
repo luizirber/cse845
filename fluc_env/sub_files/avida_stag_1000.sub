@@ -1,0 +1,14 @@
+#!/bin/bash -login
+ 
+#PBS -l walltime=48:00:00,nodes=1:ppn=1,mem=2gb
+#PBS -j oe
+#PBS -t 1-30
+
+### load necessary modules, e.g.
+module load avida
+ 
+### change to the working directory where your code is located
+cd Documents/cse845f/fluc_env/config_files
+ 
+### call your executable
+avida -set DATA_DIR ../data_stag_1000/replicate_${PBS_ARRAYID} -set ENVIRONMENT_FILE environment_stag.cfg -set EVENT_FILE events_stag_1000.cfg

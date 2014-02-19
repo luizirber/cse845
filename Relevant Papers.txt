@@ -40,5 +40,8 @@ If You Have Time:
     4. The Evolution of Ecological Specialization, Futuyama and Moreno 1988
         http://www.annualreviews.org/doi/abs/10.1146%2Fannurev.es.19.110188.001231
             Review on, well, what the title says
+    5. Evolution of a single niche specialist in variable environments, Jasmin and Kassen 2007
+        http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2279222/pdf/rspb20070936.pdf
+            Found that the population adapted to the specialist for the less-productive environment, and that adaptation in a variable environment is constrained by the supply of beneficial mutations
             
     

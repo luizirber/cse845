@@ -149,3 +149,38 @@ def get_final_ecotype_num_data(resource_levels,type_data):
         pickle.dump(ecotype_sd,open("../replication_plot_data/"+str(type_data)+"_nums_sd_"+str(resource_level)+".data","wb"))
     return "success"
 
+def get_task_num_ecotypes_for_update(file_loc):
+    ecotypes=[]
+    ecotype_file_lines=get_file_lines(str(file_loc))
+    for line in ecotype_file_lines:
+        if len(line)!=0 and line[0]!="#":
+            temp=str(line).split(" ")
+            eco_str=list(temp)
+            if len(eco_str)==10 and eco_str[9]=="":
+                eco_str=eco_str[:9]
+            assert len(eco_str)==9,"Incorrect Ecotype String Length: "+str(eco_str)
+            ecotypes+=[eco_str] 
+    return copy.deepcopy(ecotypes)
+
+def get_final_task_num_ecotypes(resource_levels):
+    for resource_level in resource_levels:
+        ecotype_mean=0
+        ecotype_se=0
+        ecotype_sd=0
+        ecotype_counts=[]
+        for replicate in range(1,31):
+            file_str="../data_"+str(resource_level)+"/task_nums/replicate_"+str(replicate)+".data"
+            ecos_for_update=copy.deepcopy(get_task_num_ecotypes_for_update(file_str))
+            present_ecotypes=[]
+            for i in range(len(ecos_for_update)):
+                if list(ecos_for_update[i]) not in present_ecotypes:
+                    present_ecotypes+=[list(ecos_for_update[i])]
+            ecotype_counts+=[len(present_ecotypes)]
+        ecotype_mean=stats.nanmean(ecotype_counts)
+        ecotype_se=stats.sem(ecotype_counts)
+        ecotype_sd=stats.nanstd(ecotype_counts)
+        pickle.dump(ecotype_mean,open("../replication_plot_data/task_num_ecotype_nums_mean_"+str(resource_level)+".data","wb"))
+        pickle.dump(ecotype_se,open("../replication_plot_data/task_num_ecotype_nums_se_"+str(resource_level)+".data","wb"))
+        pickle.dump(ecotype_sd,open("../replication_plot_data/task_num_ecotype_nums_sd_"+str(resource_level)+".data","wb"))
+    return "success"
+
