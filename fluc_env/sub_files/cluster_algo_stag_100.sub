@@ -1,0 +1,12 @@
+#!/bin/bash -login
+ 
+#PBS -l walltime=1:00:00,nodes=1:ppn=1,mem=2gb
+#PBS -j oe
+#PBS -t 1-30
+
+cd Documents/cse845f/fluc_env/clustering
+make -f Makefile.asc
+ 
+python preprocess.py ../data_stag_100/replicate_${PBS_ARRAYID}/detail_h-400000.spop ../clustering_files/cluster_stag_100/processed_files/detail_h-400000_${PBS_ARRAYID}.pre.spop
+python preprocess.py ../data_stag_100/replicate_${PBS_ARRAYID}/detail-400000.spop ../clustering_files/cluster_stag_100/processed_files/detail-400000_${PBS_ARRAYID}.pre.spop
+./treeCS ../clustering_files/cluster_stag_100/processed_files/detail-400000_${PBS_ARRAYID}.pre.spop ../clustering_files/cluster_stag_100/processed_files/detail_h-400000_${PBS_ARRAYID}.pre.spop ../clustering_files/cluster_stag_100/output_files/output_${PBS_ARRAYID}.dat 151467
