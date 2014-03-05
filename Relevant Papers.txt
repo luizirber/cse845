@@ -26,6 +26,9 @@ Important:
     4. Experimental evolution in Chlamydomonas. IV. Selection in environments that vary through time at different scales, Kassen and Bell 1998
         http://www.nature.com/hdy/journal/v80/n6/full/6883290a.html
             Found that selection acted on the mean of fitness, not the variance, and that there was little cost to being a generalist
+    5. Experimental evolution with E. coli in diverse resource environments. I. Fluctuating environments promote divergence of replicate   populations, Cooper and Lenski 2010
+	http://www.biomedcentral.com/1471-2148/10/11/
+		Found that populations diverge more in temporal heterogeneous environments than constant ones.
 
 If You Have Time:
     1. Frequency-Dependent Selection in a Periodic Environment, Foster and Wilke 2007
