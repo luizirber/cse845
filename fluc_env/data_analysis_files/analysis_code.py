@@ -2,6 +2,7 @@ import scipy.stats as stats
 import cPickle as pickle
 import copy
 import math
+import numpy as np
 
 def get_file_lines(file_str):
     """
@@ -18,7 +19,7 @@ def get_file_lines(file_str):
     f.close()
     assert len(lines)!=0,"length of "+str(file_str)+"=0"
     return copy.deepcopy(lines)
-
+"""
 def get_ecotypes_for_update(file_loc,type_data):
     ecotypes_and_counts=[]
     ecotype_file_lines=get_file_lines(str(file_loc))
@@ -104,7 +105,7 @@ def get_final_task_num_ecotypes(fluc_levels,fluc_type):
         pickle.dump(ecotype_se,open("../plot_data/task_num_ecotype_nums_se_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
         pickle.dump(ecotype_sd,open("../plot_data/task_num_ecotype_nums_sd_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
     return "success"
-
+"""
 def get_resource_counts(fluc_levels,fluc_type):
     for fluc_level in fluc_levels:
         resource_counts_mean=[[] for i in range(9)]
@@ -155,3 +156,154 @@ def get_generations_per_update(fluc_levels,fluc_type):
         pickle.dump(gens_sd,open("../plot_data/gens_sd_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
     return "success"
 
+def get_total_resource_counts(fluc_levels,fluc_type):
+    for fluc_level in fluc_levels:
+        resource_counts_mean=[]
+        resource_counts_se=[]
+        resource_counts_sd=[]
+        resource_counts=[]
+        for replicate in range(1,31):
+            replicate_counts=[]
+            resources_for_replicate=get_file_lines("../data_"+str(fluc_type)+"_"+str(fluc_level)+"/replicate_"+str(replicate)+"/resource.dat")
+            for i in range(len(resources_for_replicate)):
+                if len(resources_for_replicate[i])!=0 and resources_for_replicate[i][0]!="#":
+                    temp=str(resources_for_replicate[i]).split(" ")
+                    update_resource_count=0
+                    for j in range(1,10):
+                        update_resource_count+=float(temp[j])
+                    replicate_counts+=[update_resource_count]
+            assert len(replicate_counts)==500000/50+1,""+str(len(replicate_counts))
+            resource_counts+=[copy.deepcopy(replicate_counts)]
+        assert len(resource_counts)==30,""+str(len(resource_counts))
+        for update in range(0,400001,50):
+            update_data=[float(resource_counts[i][update/50]) for i in range(30)]
+            resource_counts_mean+=[stats.nanmean(update_data)]
+            resource_counts_se+=[stats.sem(update_data)]
+            resource_counts_sd+=[stats.nanstd(update_data)]
+        pickle.dump(resource_counts_mean,open("../plot_data/total_resource_counts_mean_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+        pickle.dump(resource_counts_se,open("../plot_data/total_resource_counts_se_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+        pickle.dump(resource_counts_sd,open("../plot_data/total_resource_counts_sd_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+    return "success"
+
+def get_total_task_counts(fluc_levels,fluc_type):
+    for fluc_level in fluc_levels:
+        task_counts_mean=[]
+        task_counts_se=[]
+        task_counts_sd=[]
+        task_counts=[]
+        for replicate in range(1,31):
+            replicate_counts=[]
+            tasks_for_replicate=get_file_lines("../data_"+str(fluc_type)+"_"+str(fluc_level)+"/replicate_"+str(replicate)+"/tasks.dat")
+            for i in range(len(tasks_for_replicate)):
+                if len(tasks_for_replicate[i])!=0 and tasks_for_replicate[i][0]!="#":
+                    temp=str(tasks_for_replicate[i]).split(" ")
+                    update_task_count=0
+                    for j in range(1,10):
+                        update_task_count+=float(temp[j])
+                    replicate_counts+=[update_task_count]
+            assert len(replicate_counts)==500000/50+1,""+str(len(replicate_counts))
+            task_counts+=[copy.deepcopy(replicate_counts)]
+        assert len(task_counts)==30,""+str(len(task_counts))
+        for update in range(0,400001,50):
+            update_data=[float(task_counts[i][update/50]) for i in range(30)]
+            task_counts_mean+=[stats.nanmean(update_data)]
+            task_counts_se+=[stats.sem(update_data)]
+            task_counts_sd+=[stats.nanstd(update_data)]
+        pickle.dump(task_counts_mean,open("../plot_data/total_task_counts_mean_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+        pickle.dump(task_counts_se,open("../plot_data/total_task_counts_se_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+        pickle.dump(task_counts_sd,open("../plot_data/total_task_counts_sd_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+    return "success"
+"""
+def get_phylo_depth_changes(fluc_levels,fluc_type):
+    for fluc_level in fluc_levels:
+        fluc_length=int(fluc_level)
+        start_slope_means=[]
+        start_slope_se=[]
+        end_slope_means=[]
+        end_slope_se=[]
+        for replicate in range(1,31):
+            avg_depth_for_updates=[]
+            start_inflow_slopes=[]
+            end_inflow_slopes=[]
+            averages_for_replicate=get_file_lines("../data_"+str(fluc_type)+"_"+str(fluc_level)+"/replicate_"+str(replicate)+"/average.dat")
+            for line in averages_for_replicate:
+                if len(line)!=0 and line[0]!="#":
+                    temp=line.split(" ")
+                    update=int(temp[0])
+                    if update%fluc_length==0:
+                        depth=float(temp[11])
+                        avg_depth_for_updates+=[float(depth)]
+            for i in range(len(avg_depth_for_updates)-1):
+                if i%2==0:
+                    start_inflow_slopes+=[math.fabs(avg_depth_for_updates[i]-avg_depth_for_updates[i+1])]
+                else:
+                    end_inflow_slopes+=[math.fabs(avg_depth_for_updates[i]-avg_depth_for_updates[i+1])]
+            start_slope_means+=[stats.nanmean(start_inflow_slopes)]
+            start_slope_se+=[stats.sem(start_inflow_slopes)]
+            end_slope_means+=[stats.nanmean(end_inflow_slopes)]
+            end_slope_se+=[stats.sem(end_inflow_slopes)]
+        pickle.dump(start_slope_means,open("../plot_data/start_slope_mean_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+        pickle.dump(end_slope_means,open("../plot_data/end_slope_mean_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+        pickle.dump(start_slope_se,open("../plot_data/start_slope_se_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+        pickle.dump(end_slope_se,open("../plot_data/end_slope_se_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+    return "success"
+"""
+def get_phylo_depth_changes(fluc_levels,fluc_type,data_type):
+    
+    assert type(fluc_levels)==list
+    assert type(fluc_type)==str
+    assert fluc_type in ["sync","stag","lowhigh"]
+    assert type(data_type)==str
+    assert data_type in ["raw","avg"]
+    
+    for fluc_level in fluc_levels:
+        
+        fluc_length=int(fluc_level)
+        
+        if data_type=="avg":
+            start_slope_means=[]
+            start_slope_se=[]
+            end_slope_means=[]
+            end_slope_se=[]
+        else:
+            start_slopes=[[] for i in range(30)]
+            end_slopes=[[] for i in range(30)]
+            
+        for replicate in range(1,31):
+            avg_depth_for_updates=[]
+            start_inflow_slopes=[]
+            end_inflow_slopes=[]
+            averages_for_replicate=get_file_lines("../data_"+str(fluc_type)+"_"+str(fluc_level)+"/replicate_"+str(replicate)+"/average.dat")
+            for line in averages_for_replicate:
+                if len(line)!=0 and line[0]!="#":
+                    temp=line.split(" ")
+                    update=int(temp[0])
+                    if update%fluc_length==0:
+                        depth=float(temp[11])
+                        avg_depth_for_updates+=[float(depth)]
+                        
+            for i in range(len(avg_depth_for_updates)-1):
+                if i%2==0:
+                    start_inflow_slopes+=[math.fabs(avg_depth_for_updates[i]-avg_depth_for_updates[i+1])]
+                else:
+                    end_inflow_slopes+=[math.fabs(avg_depth_for_updates[i]-avg_depth_for_updates[i+1])]
+                    
+            if data_type=="avg":
+                start_slope_means+=[stats.nanmean(start_inflow_slopes)]
+                start_slope_se+=[stats.sem(start_inflow_slopes)]
+                end_slope_means+=[stats.nanmean(end_inflow_slopes)]
+                end_slope_se+=[stats.sem(end_inflow_slopes)]
+            else:
+                start_slopes[replicate-1]=list(start_inflow_slopes)
+                end_slopes[replicate-1]=list(end_inflow_slopes)
+                
+        if data_type=="avg":
+            pickle.dump(start_slope_means,open("../plot_data/start_slope_mean_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+            pickle.dump(end_slope_means,open("../plot_data/end_slope_mean_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+            pickle.dump(start_slope_se,open("../plot_data/start_slope_se_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+            pickle.dump(end_slope_se,open("../plot_data/end_slope_se_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+        else:
+            pickle.dump(start_slopes,open("../plot_data/start_slope_raw_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+            pickle.dump(end_slopes,open("../plot_data/end_slope_raw_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+            
+    return "success"

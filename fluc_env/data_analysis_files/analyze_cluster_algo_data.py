@@ -35,5 +35,6 @@ def count_species(inflow_rates,fluc_type):
         pickle.dump(rate_sd,open("../plot_data/cluster_species_sd_"+str(fluc_type)+"_"+str(i)+".data","wb"))
     return "success"
 
-count_species(["1","10","100","1000","10000"],"sync")
-count_species(["1","10","100","1000","10000"],"stag")
+#count_species(["1","10","100","1000","10000"],"sync")
+#count_species(["1","10","100","1000","10000"],"stag")
+count_species(["1","10","100","1000","10000"],"lowhigh")

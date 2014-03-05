@@ -5,6 +5,7 @@
 
 ### load necessary modules, e.g.
 module load SciPy
+module load NumPy
  
 ### change to the working directory where your code is located
 cd Documents/cse845f/fluc_env/data_analysis_files
