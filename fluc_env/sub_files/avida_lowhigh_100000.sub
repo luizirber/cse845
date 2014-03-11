@@ -2,7 +2,7 @@
  
 #PBS -l walltime=48:00:00,nodes=1:ppn=1,mem=2gb
 #PBS -j oe
-#PBS -t 15
+#PBS -t 1-30
 
 ### load necessary modules, e.g.
 module load avida
@@ -11,4 +11,4 @@ module load avida
 cd Documents/cse845f/fluc_env/config_files
  
 ### call your executable
-avida -set DATA_DIR ../data_lowhigh_10/replicate_${PBS_ARRAYID} -set ENVIRONMENT_FILE environment_lowhigh.cfg -set EVENT_FILE events_lowhigh_10.cfg
+avida -set DATA_DIR ../data_lowhigh_100000/replicate_${PBS_ARRAYID} -set ENVIRONMENT_FILE environment_lowhigh.cfg -set EVENT_FILE events_lowhigh_100000.cfg

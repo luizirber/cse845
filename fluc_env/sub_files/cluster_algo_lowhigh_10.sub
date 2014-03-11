@@ -2,7 +2,7 @@
  
 #PBS -l walltime=1:00:00,nodes=1:ppn=1,mem=2gb
 #PBS -j oe
-#PBS -t 1-30
+#PBS -t 1-14,16-30
 
 cd Documents/cse845f/fluc_env/clustering
 make -f Makefile.asc

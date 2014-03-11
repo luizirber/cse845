@@ -22,6 +22,8 @@ def count_species(inflow_rates,fluc_type):
     for i in inflow_rates:
         rate_species_nums=[]
         for replicate in range(1,31):
+            if i=="10" and replicate==15:
+                continue
             data=get_file_lines("../clustering_files/cluster_"+str(fluc_type)+"_"+str(i)+"/output_files/output_"+str(replicate)+".dat")
             for line in data:
                 if "Number of Clusters" in line:
@@ -37,4 +39,5 @@ def count_species(inflow_rates,fluc_type):
 
 #count_species(["1","10","100","1000","10000"],"sync")
 #count_species(["1","10","100","1000","10000"],"stag")
-count_species(["1","10","100","1000","10000"],"lowhigh")
+#count_species(["1","10","100","1000","10000"],"lowhigh")
+count_species(["10"],"lowhigh")
