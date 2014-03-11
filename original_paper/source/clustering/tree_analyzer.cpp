@@ -317,7 +317,6 @@ void TreeAnalyzer::sortData( const char *sortedDataFile )
     cluster[i][1] = closest;
     out << m_finalPop[i] << " " << m_finalPop[closest] << " " << minDist << endl;
   }
-  out << "#end of analysis\n";
 
   out.close();
 }
