@@ -1,0 +1,29 @@
+#!/bin/bash -eu
+
+for HISTORY_FILE in $(find ../ -iname "detail_h-*")
+do
+    HISTORY_FILENAME=$(basename $HISTORY_FILE)
+    DETAIL_FILE=$(dirname ${HISTORY_FILE})/${HISTORY_FILENAME/_h/}
+    SIMULATION=$(echo $HISTORY_FILE | cut -d "/" -f2)
+    REPLICATE=$(echo $HISTORY_FILE | cut -d "/" -f3) # | cut -d"_" -f2)
+    GENERATION=$(echo $HISTORY_FILENAME | cut -d "." -f1 | cut -d "-" -f2)
+    OUTPUT_DIR=$(readlink -f ..)/${SIMULATION}/clustering_history/${REPLICATE}
+    OUTPUT_HISTORY_PRE=$OUTPUT_DIR/detail_h.${GENERATION}.pre.spop
+    OUTPUT_DETAIL_PRE=$OUTPUT_DIR/detail.${GENERATION}.pre.spop
+    OUTPUT_FILE=$OUTPUT_DIR/${GENERATION}.output
+
+    ANALYSIS_SCRIPTS=$(readlink -f ../clustering)
+    WORKDIR=$(readlink -f ./workdir)
+    JOB_LOG=$WORKDIR/outputs/$SIMULATION.$REPLICATE.$GENERATION
+
+    if ! grep -i "#end of analysis" $OUTPUT_FILE > /dev/null
+    then
+      if ! grep "Job ended without problems" $JOB_LOG > /dev/null
+      then
+        if [ $(basename $OUTPUT_FILE) != "0.output" ]
+        then
+          ./clustering.sh $HISTORY_FILE $DETAIL_FILE $SIMULATION $REPLICATE $GENERATION $OUTPUT_DIR $OUTPUT_HISTORY_PRE $OUTPUT_DETAIL_PRE $OUTPUT_FILE $ANALYSIS_SCRIPTS $WORKDIR $JOB_LOG
+        fi
+      fi
+    fi
+done
