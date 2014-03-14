@@ -307,3 +307,28 @@ def get_count(data_category,specific_data,fluc_levels,fluc_type):
         pickle.dump(treatment_counts_se,open("../plot_data/"+str(data_category)+"_"+str(specific_data)+"_counts_se_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
         pickle.dump(treatment_counts_sd,open("../plot_data/"+str(data_category)+"_"+str(specific_data)+"_counts_sd_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
     return "success"
+
+def get_equ_counts(fluc_levels,fluc_type,update):
+    assert type(fluc_levels)==list
+    assert type(fluc_type)==str
+    assert fluc_type in ["sync","stag","lowhigh"]
+    assert type(update)==int
+    
+    for fluc_level in fluc_levels:
+        treatment_counts_1=0
+        treatment_counts=[]
+        for replicate in range(1,31):
+            data_for_replicate=get_file_lines("../data_"+str(fluc_type)+"_"+str(fluc_level)+"/replicate_"+str(replicate)+"/tasks.dat")
+            for i in range(len(data_for_replicate)):
+                if len(data_for_replicate[i])!=0 and data_for_replicate[i][0]!="#":
+                    temp=str(data_for_replicate[i]).split(" ")
+                    if temp[0]==str(update):
+                        if int(temp[9])==0:
+                            treatment_counts+=[0]
+                        else:
+                            treatment_counts+=[1]
+                        break
+        assert len(treatment_counts)==30,""+str(len(treatment_counts))
+        treatment_counts_1=treatment_counts.count(1)
+        pickle.dump(treatment_counts_1,open("../plot_data/equ_counts_1_"+str(fluc_type)+"_"+str(fluc_level)+"_"+str(update)+".data","wb"))
+    return "success"
