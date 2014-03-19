@@ -10,4 +10,4 @@ module load avida
 cd Documents/cse845f/fluc_env/config_files
  
 ### call your executable
-avida -a -set DATA_DIR ../data_stag_10 -set EVENT_FILE events_stag_10.cfg -set ANALYZE_FILE analyze_stag_10.cfg
+avida -a -set DATA_DIR ../data_stag_10 -set EVENT_FILE events_stag_10.cfg -set ANALYZE_FILE analyze_stag_10.cfg -set ENVIRONMENT_FILE environment_analyze.cfg
