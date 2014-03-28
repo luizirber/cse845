@@ -1,0 +1,30 @@
+Introduction
+    -Biodiversity and Adaptive Radiation
+    -Fluctuating Environments
+    -Previous work in Avida and Microbes
+    -What we did/found
+Methods
+    -Introduction to Avida
+    -Explanation of Environment and Fluctuations
+    -Explanation of Clustering Algorithm
+    -Data analysis stuff
+Results
+    -Species Richness
+    -Task Performance
+    -Resource Levels
+    -Change in Evolution Rate
+    -Modularity
+    -Evol. of EQU
+Discussion
+    -
+    -
+    -limitations
+    -Conclusion/Future work
+Figures
+    -Final Species Richness
+    -Species Richness over Time
+    -Easy/Hard Task last 50k updates
+    -Easy/Hard Resource last 50k updates
+    -Flame Graph (10k or 100k?)
+    -Sites used in task performance over time
+    -Evolution of EQU?
