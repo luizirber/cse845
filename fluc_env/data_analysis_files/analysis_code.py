@@ -357,3 +357,26 @@ def get_site_proportion_data(fluc_levels,fluc_type):
         pickle.dump(treatment_means,open("../plot_data/site_proportion_means_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
         pickle.dump(treatment_ses,open("../plot_data/site_proportion_ses_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
     return "success"
+
+def get_generation_data(fluc_levels,fluc_type):
+    assert type(fluc_levels)==list
+    assert type(fluc_type)==str
+    assert fluc_type in ["sync","stag","lowhigh"]
+    
+    for fluc_level in fluc_levels:
+        treatment_means=[]
+        treatment_ses=[]
+        treatment_data=[[] for i in range((400000/50)+1)]
+        for replicate in range(1,31):
+            data_for_replicate=get_file_lines("../data_"+str(fluc_type)+"_"+str(fluc_level)+"/replicate_"+str(replicate)+"/average.dat")
+            for line in data_for_replicate:
+                if len(line)>0 and not line.startswith("#"):
+                    temp=str(line).split(" ")
+                    if int(temp[0])<=400000:
+                        treatment_data[int(temp[0])/50]+=[float(temp[12])]
+        for update in range(len(treatment_data)):
+            treatment_means+=[stats.nanmean(treatment_data[update])]
+            treatment_ses+=[stats.sem(treatment_data[update])]
+        pickle.dump(treatment_means,open("../plot_data/generation_means_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+        pickle.dump(treatment_ses,open("../plot_data/generation_ses_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+    return "success"

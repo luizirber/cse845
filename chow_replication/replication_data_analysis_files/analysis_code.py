@@ -207,3 +207,47 @@ def get_site_proportion_data(inflow_rates):
         pickle.dump(treatment_ses,open("../replication_plot_data/site_proportion_ses_"+str(inflow)+".data","wb"))
     return "success"
 
+def get_equ_counts(inflow_levels,update):
+    assert type(inflow_levels)==list
+    assert type(update)==int
+    
+    for inflow in inflow_levels:
+        treatment_counts_1=0
+        treatment_counts=[]
+        for replicate in range(1,31):
+            data_for_replicate=get_file_lines("../data_"+str(inflow)+"/replicate_"+str(replicate)+"/tasks.dat")
+            for i in range(len(data_for_replicate)):
+                if len(data_for_replicate[i])!=0 and data_for_replicate[i][0]!="#":
+                    temp=str(data_for_replicate[i]).split(" ")
+                    if temp[0]==str(update):
+                        if int(temp[9])==0:
+                            treatment_counts+=[0]
+                        else:
+                            treatment_counts+=[1]
+                        break
+        assert len(treatment_counts)==30,""+str(len(treatment_counts))
+        treatment_counts_1=treatment_counts.count(1)
+        pickle.dump(treatment_counts_1,open("../replication_plot_data/equ_counts_1_"+"_"+str(inflow)+"_"+str(update)+".data","wb"))
+    return "success"
+
+def get_generation_data(inflow_levels):
+    assert type(inflow_levels)==list
+    
+    for inflow in inflow_levels:
+        treatment_means=[]
+        treatment_ses=[]
+        treatment_data=[[] for i in range((400000/50)+1)]
+        for replicate in range(1,31):
+            data_for_replicate=get_file_lines("../data_"+str(inflow)+"/replicate_"+str(replicate)+"/average.dat")
+            for line in data_for_replicate:
+                if len(line)>0 and not line.startswith("#"):
+                    temp=str(line).split(" ")
+                    if int(temp[0])<=400000:
+                        treatment_data[int(temp[0])/50]+=[float(temp[12])]
+        for update in range(len(treatment_data)):
+            treatment_means+=[stats.nanmean(treatment_data[update])]
+            treatment_ses+=[stats.sem(treatment_data[update])]
+        pickle.dump(treatment_means,open("../replication_plot_data/generation_means_"+str(inflow)+".data","wb"))
+        pickle.dump(treatment_ses,open("../replication_plot_data/generation_ses_"+str(inflow)+".data","wb"))
+    return "success"
+

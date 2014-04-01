@@ -42,4 +42,7 @@ import analysis_code as ac
 #ac.get_site_proportion_data(["1","10","100","1000","10000"],"sync")
 #ac.get_site_proportion_data(["10","100","1000","10000"],"stag")
 #ac.get_site_proportion_data(["1","10","100","1000","10000"],"lowhigh")
-ac.get_site_proportion_data(["1"],"stag")
+#ac.get_site_proportion_data(["1"],"stag")
+ac.get_generation_data(["1","10","100","1000","10000","100000"],"sync")
+ac.get_generation_data(["1","10","100","1000","10000","100000"],"stag")
+ac.get_generation_data(["1","10","100","1000","10000","100000"],"lowhigh")
