@@ -251,3 +251,23 @@ def get_generation_data(inflow_levels):
         pickle.dump(treatment_ses,open("../replication_plot_data/generation_ses_"+str(inflow)+".data","wb"))
     return "success"
 
+def get_genotype_count_data(inflow_levels):
+    assert type(inflow_levels)==list
+    
+    for inflow in inflow_levels:
+        treatment_means=[]
+        treatment_ses=[]
+        treatment_data=[[] for i in range((400000/50)+1)]
+        for replicate in range(1,31):
+            data_for_replicate=get_file_lines("../data_"+str(inflow)+"/replicate_"+str(replicate)+"/count.dat")
+            for line in data_for_replicate:
+                if len(line)>0 and not line.startswith("#"):
+                    temp=str(line).split(" ")
+                    if int(temp[0])<=400000:
+                        treatment_data[int(temp[0])/50]+=[float(temp[3])]
+        for update in range(len(treatment_data)):
+            treatment_means+=[stats.nanmean(treatment_data[update])]
+            treatment_ses+=[stats.sem(treatment_data[update])]
+        pickle.dump(treatment_means,open("../replication_plot_data/genotype_count_means_"+str(inflow)+".data","wb"))
+        pickle.dump(treatment_ses,open("../replication_plot_data/genotype_count_ses_"+str(inflow)+".data","wb"))
+    return "success"
