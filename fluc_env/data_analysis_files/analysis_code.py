@@ -213,41 +213,7 @@ def get_total_task_counts(fluc_levels,fluc_type):
         pickle.dump(task_counts_se,open("../plot_data/total_task_counts_se_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
         pickle.dump(task_counts_sd,open("../plot_data/total_task_counts_sd_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
     return "success"
-"""
-def get_phylo_depth_changes(fluc_levels,fluc_type):
-    for fluc_level in fluc_levels:
-        fluc_length=int(fluc_level)
-        start_slope_means=[]
-        start_slope_se=[]
-        end_slope_means=[]
-        end_slope_se=[]
-        for replicate in range(1,31):
-            avg_depth_for_updates=[]
-            start_inflow_slopes=[]
-            end_inflow_slopes=[]
-            averages_for_replicate=get_file_lines("../data_"+str(fluc_type)+"_"+str(fluc_level)+"/replicate_"+str(replicate)+"/average.dat")
-            for line in averages_for_replicate:
-                if len(line)!=0 and line[0]!="#":
-                    temp=line.split(" ")
-                    update=int(temp[0])
-                    if update%fluc_length==0:
-                        depth=float(temp[11])
-                        avg_depth_for_updates+=[float(depth)]
-            for i in range(len(avg_depth_for_updates)-1):
-                if i%2==0:
-                    start_inflow_slopes+=[math.fabs(avg_depth_for_updates[i]-avg_depth_for_updates[i+1])]
-                else:
-                    end_inflow_slopes+=[math.fabs(avg_depth_for_updates[i]-avg_depth_for_updates[i+1])]
-            start_slope_means+=[stats.nanmean(start_inflow_slopes)]
-            start_slope_se+=[stats.sem(start_inflow_slopes)]
-            end_slope_means+=[stats.nanmean(end_inflow_slopes)]
-            end_slope_se+=[stats.sem(end_inflow_slopes)]
-        pickle.dump(start_slope_means,open("../plot_data/start_slope_mean_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
-        pickle.dump(end_slope_means,open("../plot_data/end_slope_mean_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
-        pickle.dump(start_slope_se,open("../plot_data/start_slope_se_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
-        pickle.dump(end_slope_se,open("../plot_data/end_slope_se_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
-    return "success"
-"""
+
 def get_phylo_depth_changes(fluc_levels,fluc_type,data_type):
     
     assert type(fluc_levels)==list
@@ -306,4 +272,134 @@ def get_phylo_depth_changes(fluc_levels,fluc_type,data_type):
             pickle.dump(start_slopes,open("../plot_data/start_slope_raw_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
             pickle.dump(end_slopes,open("../plot_data/end_slope_raw_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
             
+    return "success"
+
+def get_count(data_category,specific_data,fluc_levels,fluc_type):
+    assert data_category in ["resource","tasks"]
+    assert type(fluc_levels)==list
+    assert type(fluc_type)==str
+    assert fluc_type in ["sync","stag","lowhigh"]
+    assert specific_data>=0
+    assert specific_data<=8
+    
+    for fluc_level in fluc_levels:
+        treatment_counts_mean=[]
+        treatment_counts_se=[]
+        treatment_counts_sd=[]
+        treatment_counts=[]
+        for replicate in range(1,31):
+            replicate_counts=[]
+            data_for_replicate=get_file_lines("../data_"+str(fluc_type)+"_"+str(fluc_level)+"/replicate_"+str(replicate)+"/"+str(data_category)+".dat")
+            for i in range(len(data_for_replicate)):
+                if len(data_for_replicate[i])!=0 and data_for_replicate[i][0]!="#":
+                    temp=str(data_for_replicate[i]).split(" ")
+                    update_count=float(temp[specific_data+1])
+                    replicate_counts+=[update_count]
+            assert len(replicate_counts)==500000/50+1,""+str(len(replicate_counts))
+            treatment_counts+=[copy.deepcopy(replicate_counts)]
+        assert len(treatment_counts)==30,""+str(len(treatment_counts))
+        for update in range(0,400001,50):
+            update_data=[float(treatment_counts[i][update/50]) for i in range(30)]
+            treatment_counts_mean+=[stats.nanmean(update_data)]
+            treatment_counts_se+=[stats.sem(update_data)]
+            treatment_counts_sd+=[stats.nanstd(update_data)]
+        pickle.dump(treatment_counts_mean,open("../plot_data/"+str(data_category)+"_"+str(specific_data)+"_counts_mean_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+        pickle.dump(treatment_counts_se,open("../plot_data/"+str(data_category)+"_"+str(specific_data)+"_counts_se_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+        pickle.dump(treatment_counts_sd,open("../plot_data/"+str(data_category)+"_"+str(specific_data)+"_counts_sd_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+    return "success"
+
+def get_equ_counts(fluc_levels,fluc_type,update):
+    assert type(fluc_levels)==list
+    assert type(fluc_type)==str
+    assert fluc_type in ["sync","stag","lowhigh"]
+    assert type(update)==int
+    
+    for fluc_level in fluc_levels:
+        treatment_counts_1=0
+        treatment_counts=[]
+        for replicate in range(1,31):
+            data_for_replicate=get_file_lines("../data_"+str(fluc_type)+"_"+str(fluc_level)+"/replicate_"+str(replicate)+"/tasks.dat")
+            for i in range(len(data_for_replicate)):
+                if len(data_for_replicate[i])!=0 and data_for_replicate[i][0]!="#":
+                    temp=str(data_for_replicate[i]).split(" ")
+                    if temp[0]==str(update):
+                        if int(temp[9])==0:
+                            treatment_counts+=[0]
+                        else:
+                            treatment_counts+=[1]
+                        break
+        assert len(treatment_counts)==30,""+str(len(treatment_counts))
+        treatment_counts_1=treatment_counts.count(1)
+        pickle.dump(treatment_counts_1,open("../plot_data/equ_counts_1_"+str(fluc_type)+"_"+str(fluc_level)+"_"+str(update)+".data","wb"))
+    return "success"
+
+def get_site_proportion_data(fluc_levels,fluc_type):
+    """
+    Returns the mean and std. error of the proportion of sites used in tasks (generated by modularity analysis)
+    """
+    assert type(fluc_levels)==list
+    assert type(fluc_type)==str
+    assert fluc_type in ["sync","stag","lowhigh"]
+    
+    for fluc_level in fluc_levels:
+        treatment_means=[]
+        treatment_ses=[]
+        for update in range(0,400001,20000):
+            update_data=[]
+            for replicate in range(1,31):
+                data_for_replicate=get_file_lines("../data_"+str(fluc_type)+"_"+str(fluc_level)+"/modularity/replicate_"+str(replicate)+"_"+str(update)+".dat")
+                assert len(data_for_replicate)==1, ""+str(len(data_for_replicate))
+                temp=str(data_for_replicate[0]).split(" ")
+                update_data+=[float(temp[3])]
+            assert len(update_data)==30,""+str(len(update_data))
+            treatment_means+=[stats.nanmean(update_data)]
+            treatment_ses+=[stats.sem(update_data)]
+        pickle.dump(treatment_means,open("../plot_data/site_proportion_means_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+        pickle.dump(treatment_ses,open("../plot_data/site_proportion_ses_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+    return "success"
+
+def get_generation_data(fluc_levels,fluc_type):
+    assert type(fluc_levels)==list
+    assert type(fluc_type)==str
+    assert fluc_type in ["sync","stag","lowhigh"]
+    
+    for fluc_level in fluc_levels:
+        treatment_means=[]
+        treatment_ses=[]
+        treatment_data=[[] for i in range((400000/50)+1)]
+        for replicate in range(1,31):
+            data_for_replicate=get_file_lines("../data_"+str(fluc_type)+"_"+str(fluc_level)+"/replicate_"+str(replicate)+"/average.dat")
+            for line in data_for_replicate:
+                if len(line)>0 and not line.startswith("#"):
+                    temp=str(line).split(" ")
+                    if int(temp[0])<=400000:
+                        treatment_data[int(temp[0])/50]+=[float(temp[12])]
+        for update in range(len(treatment_data)):
+            treatment_means+=[stats.nanmean(treatment_data[update])]
+            treatment_ses+=[stats.sem(treatment_data[update])]
+        pickle.dump(treatment_means,open("../plot_data/generation_means_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+        pickle.dump(treatment_ses,open("../plot_data/generation_ses_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+    return "success"
+
+def get_genotype_count_data(fluc_levels,fluc_type):
+    assert type(fluc_levels)==list
+    assert type(fluc_type)==str
+    assert fluc_type in ["sync","stag","lowhigh"]
+    
+    for fluc_level in fluc_levels:
+        treatment_means=[]
+        treatment_ses=[]
+        treatment_data=[[] for i in range((400000/50)+1)]
+        for replicate in range(1,31):
+            data_for_replicate=get_file_lines("../data_"+str(fluc_type)+"_"+str(fluc_level)+"/replicate_"+str(replicate)+"/count.dat")
+            for line in data_for_replicate:
+                if len(line)>0 and not line.startswith("#"):
+                    temp=str(line).split(" ")
+                    if int(temp[0])<=400000:
+                        treatment_data[int(temp[0])/50]+=[float(temp[3])]
+        for update in range(len(treatment_data)):
+            treatment_means+=[stats.nanmean(treatment_data[update])]
+            treatment_ses+=[stats.sem(treatment_data[update])]
+        pickle.dump(treatment_means,open("../plot_data/genotype_count_means_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
+        pickle.dump(treatment_ses,open("../plot_data/genotype_count_ses_"+str(fluc_type)+"_"+str(fluc_level)+".data","wb"))
     return "success"

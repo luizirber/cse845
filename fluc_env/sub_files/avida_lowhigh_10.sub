@@ -2,7 +2,7 @@
  
 #PBS -l walltime=48:00:00,nodes=1:ppn=1,mem=2gb
 #PBS -j oe
-#PBS -t 1-30
+#PBS -t 15
 
 ### load necessary modules, e.g.
 module load avida
